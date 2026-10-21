@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Encoding teks dan pengaturan tampilan untuk perangkat mobile. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#315b43">
+  <title>MenuKita | Menu dan Pemesanan Digital</title>
+
+  <!-- File desain dan logika website dipisahkan agar mudah dipelajari. -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Header utama: logo dan tautan ke bagian menu serta keranjang. -->
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="MenuKita, kembali ke atas">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Menu<span class="brand-highlight">Kita</span></span>
+    </a>
+    <nav class="header-nav" aria-label="Navigasi utama">
+      <a href="#menu">Menu</a>
+      <a href="#cara-pesan">Cara pesan</a>
+    </nav>
+    <!-- Tombol ini menggulir pengguna ke area keranjang. Jumlah diperbarui JS. -->
+    <a class="header-cta" href="#keranjang">
+      Keranjang <span class="cart-count" id="header-cart-count">0</span>
+    </a>
+  </header>
+
+  <main>
+    <!-- Bagian perkenalan cafe. -->
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow"><span class="status-dot"></span> MENU DIGITAL • PESAN DARI MEJA</p>
+        <h1>Temukan rasa,<br><span>nikmati ceritanya.</span></h1>
+        <p class="hero-description">
+          Pilih menu favoritmu, masukkan nomor meja, lalu kirim pesanan tanpa perlu menunggu buku menu.
+        </p>
+        <a class="primary-button" href="#menu">Mulai memilih <span aria-hidden="true">↓</span></a>
+        <div class="hero-note">
+          <span class="note-icon" aria-hidden="true">✦</span>
+          <span>Periksa keranjang sebelum mengonfirmasi pesanan.</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-image"></div>
+        <div class="floating-card">
+          <span class="floating-star">✦</span>
+          <div><strong>Pesan lebih praktis</strong><p>Menu langsung dari HP</p></div>
+        </div>
+        <span class="hero-stamp">GOOD<br>FOOD<br>GOOD MOOD</span>
+      </div>
+    </section>
+
+    <!-- Informasi singkat. -->
+    <section class="benefits" aria-label="Keunggulan layanan">
+      <div><span class="benefit-icon">✳</span><span>Pilih menu sendiri</span></div>
+      <div><span class="benefit-icon">＋</span><span>Atur jumlah pesanan</span></div>
+      <div><span class="benefit-icon">✓</span><span>Lihat nomor antrean</span></div>
+    </section>
+
+    <!-- Katalog menu. Kartu akan dibuat oleh JavaScript dari data menu. -->
+    <section class="menu-section" id="menu">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PILIHAN UNTUKMU</p>
+          <h2>Menu <span>favorit.</span></h2>
+          <p class="section-description">Tekan tombol tambah untuk memasukkan menu ke keranjang.</p>
+        </div>
+        <div class="menu-count"><span id="menu-count">0</span> pilihan menu</div>
+      </div>
+
+      <!-- Pencarian menu. -->
+      <label class="search-box" for="search-input">
+        <span aria-hidden="true">⌕</span>
+        <input id="search-input" type="search" placeholder="Cari kopi, nasi goreng, camilan..." autocomplete="off">
+        <kbd>/</kbd>
+      </label>
+
+      <!-- Tombol kategori dibuat otomatis oleh JavaScript. -->
+      <div class="category-list" id="category-list" aria-label="Filter kategori"></div>
+
+      <!-- Kartu menu ditampilkan di sini. -->
+      <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+      <div class="empty-state" id="empty-state" hidden>
+        <span aria-hidden="true">⌕</span>
+        <h3>Menu belum ditemukan</h3>
+        <p>Coba kata kunci lain atau pilih kategori berbeda.</p>
+      </div>
+      <p class="menu-disclaimer">* Harga dan ketersediaan pada website demo ini merupakan contoh.</p>
+    </section>
+
+    <!-- Area keranjang: jumlah dapat ditambah/dikurangi atau dihapus. -->
+    <section class="order-section" id="keranjang">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PESANANMU</p>
+          <h2>Keranjang <span>pesanan.</span></h2>
+          <p class="section-description">Periksa nama menu dan jumlahnya sebelum konfirmasi.</p>
+        </div>
+        <div class="menu-count"><span id="cart-items-count">0</span> item</div>
+      </div>
+
+      <div class="order-layout">
+        <div class="cart-panel">
+          <div class="panel-heading">
+            <h3>Daftar menu</h3>
+            <button class="text-button" type="button" id="clear-cart-button">Kosongkan</button>
+          </div>
+          <!-- JavaScript menampilkan item keranjang atau pesan keranjang kosong. -->
+          <div id="cart-items"></div>
+          <div class="cart-empty" id="cart-empty">
+            <span aria-hidden="true">🛒</span>
+            <h3>Keranjang masih kosong</h3>
+            <p>Pilih makanan atau minuman dari daftar menu di atas.</p>
+            <a href="#menu" class="small-link">Kembali ke menu ↓</a>
+          </div>
+        </div>
+
+        <!-- Ringkasan dan form konfirmasi pesanan. -->
+        <aside class="checkout-panel">
+          <h3>Ringkasan pesanan</h3>
+          <label class="field-label" for="table-number">Nomor meja</label>
+          <input
+            id="table-number"
+            class="table-input"
+            type="number"
+            min="1"
+            max="999"
+            step="1"
+            placeholder="Contoh: 5"
+            inputmode="numeric"
+            required
+          >
+          <p class="field-help">Masukkan nomor meja yang tertera di tempat dudukmu.</p>
+
+          <div class="summary-line">
+            <span>Total item</span>
+            <strong id="summary-quantity">0</strong>
+          </div>
+          <div class="summary-line">
+            <span>Total harga</span>
+            <strong id="summary-total">Rp0</strong>
+          </div>
+          <div class="summary-note">
+            <span aria-hidden="true">ⓘ</span>
+            <p>Pesanan belum dikirim sampai kamu menekan tombol konfirmasi.</p>
+          </div>
+          <button class="confirm-button" type="button" id="confirm-order-button">
+            Konfirmasi pesanan <span aria-hidden="true">→</span>
+          </button>
+          <p class="checkout-footnote">Pembayaran dilakukan sesuai prosedur cafe.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Penjelasan antrean agar pengguna memahami arti nomor urut. -->
+    <section class="queue-info" id="cara-pesan">
+      <div class="queue-icon" aria-hidden="true">#</div>
+      <div>
+        <p class="eyebrow">SETELAH KONFIRMASI</p>
+        <h2>Dapatkan nomor antrean.</h2>
+        <p>
+          Setelah pesanan dikonfirmasi, website demo membuat nomor antrean dan perkiraan waktu tunggu.
+          Waktu tersebut hanya estimasi contoh, bukan informasi dapur secara langsung.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer website. -->
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Menu<span class="brand-highlight">Kita</span></span>
+    </a>
+    <p>Menu digital yang membuat pilihan jadi lebih mudah.</p>
+    <p>© <span id="current-year"></span> MenuKita Demo</p>
+  </footer>
+
+  <!-- Dialog ringkasan akhir: baru muncul setelah pengguna mengonfirmasi. -->
+  <dialog class="confirmation-dialog" id="confirmation-dialog" aria-labelledby="confirmation-title">
+    <div class="dialog-top">
+      <span class="success-mark" aria-hidden="true">✓</span>
+      <button class="dialog-close" id="close-dialog-button" type="button" aria-label="Tutup ringkasan">×</button>
+    </div>
+    <p class="eyebrow">PESANAN TERCATAT DI DEMO</p>
+    <h2 id="confirmation-title">Pesanan dikonfirmasi!</h2>
+    <p class="dialog-description">Tunjukkan ringkasan ini kepada pelayan. Simpan nomor antreanmu.</p>
+
+    <div class="queue-ticket">
+      <span>Nomor antrean</span>
+      <strong id="queue-number">A001</strong>
+      <span id="queue-table">Meja 1</span>
+    </div>
+
+    <div class="wait-estimate">
+      <span aria-hidden="true">◷</span>
+      <div><span>Perkiraan waktu tunggu</span><strong id="wait-time">15–20 menit</strong></div>
+    </div>
+
+    <div class="confirmed-order-list" id="confirmed-order-list"></div>
+    <div class="summary-line dialog-total">
+      <span>Total pembayaran</span>
+      <strong id="confirmed-total">Rp0</strong>
+    </div>
+
+    <p class="demo-warning">
+      Catatan: ini masih demo front-end. Nomor antrean dibuat pada browser ini dan tidak otomatis masuk ke dapur atau perangkat kasir.
+    </p>
+    <button class="confirm-button" id="finish-order-button" type="button">Selesai</button>
+  </dialog>
+
+  <!-- Latar gelap di belakang dialog, dikendalikan CSS saat dialog terbuka. -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
