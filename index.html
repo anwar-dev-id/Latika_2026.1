@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Menentukan karakter agar teks Bahasa Indonesia tampil dengan benar. -->
+  <meta charset="UTF-8">
+
+  <!-- Membuat tampilan menyesuaikan lebar layar HP, tablet, dan laptop. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MenuKita | Menu Digital Cafe</title>
+
+  <!-- Menghubungkan file CSS untuk mengatur desain halaman. -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Menggunakan font dari Google Fonts; website tetap dapat berjalan jika font gagal dimuat. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- defer membuat JavaScript dijalankan setelah HTML selesai dibaca browser. -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Header berisi identitas cafe dan navigasi utama. -->
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="MenuKita, kembali ke atas">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Menu<span class="brand-highlight">Kita</span></span>
+    </a>
+
+    <nav class="header-nav" aria-label="Navigasi utama">
+      <a href="#menu">Jelajahi Menu</a>
+      <a href="#tentang">Tentang</a>
+    </nav>
+
+    <a class="header-cta" href="#menu">Lihat Menu <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <!-- Bagian pembuka untuk memperkenalkan cafe. -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow"><span class="status-dot"></span> FRESHLY MADE, SERVED WITH CARE</p>
+        <h1 id="hero-title">Temukan rasa,<br><span>nikmati ceritanya.</span></h1>
+        <p class="hero-description">
+          Dari kopi favorit sampai camilan hangat, temukan pilihan yang pas untuk menemani harimu.
+        </p>
+        <a class="primary-button" href="#menu">Jelajahi menu <span aria-hidden="true">↓</span></a>
+        <div class="hero-note">
+          <span class="note-icon" aria-hidden="true">✦</span>
+          <span>Menu digital praktis. Tidak perlu menunggu buku menu.</span>
+        </div>
+      </div>
+
+      <!-- Gambar dekoratif; alt kosong karena gambar hanya sebagai hiasan. -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-image"></div>
+        <div class="floating-card">
+          <span class="floating-star">✦</span>
+          <div>
+            <strong>Dibuat dengan hati</strong>
+            <p>Teman santai setiap hari</p>
+          </div>
+        </div>
+        <span class="hero-stamp">GOOD<br>FOOD<br>GOOD MOOD</span>
+      </div>
+    </section>
+
+    <!-- Ringkasan kecil yang menonjolkan kelebihan cafe. -->
+    <section class="benefits" aria-label="Keunggulan cafe">
+      <div><span class="benefit-icon">✳</span><span>Bahan pilihan</span></div>
+      <div><span class="benefit-icon">☕</span><span>Racikan favorit</span></div>
+      <div><span class="benefit-icon">♡</span><span>Suasana nyaman</span></div>
+    </section>
+
+    <!-- Katalog menu: isi kartu dibuat secara dinamis oleh JavaScript. -->
+    <section class="menu-section" id="menu" aria-labelledby="menu-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">PILIHAN UNTUKMU</p>
+          <h2 id="menu-title">Menu <span>favorit.</span></h2>
+          <p class="section-description">Cari yang kamu inginkan, lalu temukan teman terbaik untuk waktumu.</p>
+        </div>
+        <div class="menu-count"><span id="menu-count">0</span> pilihan menu</div>
+      </div>
+
+      <!-- Kolom pencarian dihubungkan ke JavaScript melalui id="search-input". -->
+      <label class="search-box" for="search-input">
+        <span aria-hidden="true">⌕</span>
+        <input id="search-input" type="search" placeholder="Cari kopi, nasi goreng, camilan..." autocomplete="off">
+        <kbd>/</kbd>
+      </label>
+
+      <!-- Tombol kategori dibuat dari JavaScript agar mudah ditambah. -->
+      <div class="category-list" id="category-list" aria-label="Filter kategori"></div>
+
+      <!-- JavaScript memasukkan kartu menu ke elemen ini. -->
+      <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+
+      <!-- Pesan ini ditampilkan jika pencarian tidak menemukan menu. -->
+      <div class="empty-state" id="empty-state" hidden>
+        <span aria-hidden="true">⌕</span>
+        <h3>Menu belum ditemukan</h3>
+        <p>Coba kata kunci lain atau pilih kategori yang berbeda.</p>
+      </div>
+
+      <p class="menu-disclaimer">
+        * Harga dan ketersediaan pada demo ini merupakan contoh. Silakan konfirmasi kepada pelayan.
+      </p>
+    </section>
+
+    <!-- Penjelasan singkat tentang konsep layanan. -->
+    <section class="about-section" id="tentang">
+      <div class="about-symbol" aria-hidden="true">M.</div>
+      <div>
+        <p class="eyebrow">LEBIH MUDAH, LEBIH PRAKTIS</p>
+        <h2>Menu ada di tanganmu.</h2>
+        <p>
+          MenuKita membantu pelanggan melihat daftar makanan dan minuman lewat HP.
+          Pada versi demo ini, pemesanan dan pembayaran tetap dilakukan langsung kepada pelayan.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer sederhana. Tahun akan diisi otomatis oleh JavaScript. -->
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Menu<span class="brand-highlight">Kita</span></span>
+    </a>
+    <p>Menu digital yang membuat pilihan jadi lebih mudah.</p>
+    <p>© <span id="current-year"></span> MenuKita Demo</p>
+  </footer>
+</body>
+</html>
